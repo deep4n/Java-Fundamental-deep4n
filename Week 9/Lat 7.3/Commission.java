@@ -11,20 +11,25 @@ public class Commission extends Hourly {
         public Commission (String eName, String eAddress, String ePhone,
                            String socSecNumber, double rate, double commRate){
             super (eName, eAddress, ePhone, socSecNumber, rate);
+            commissionRate = commRate;
         }
         
         public void addSales (double totalSales){
-            this.totalSales = totalSales;
+            this.totalSales += totalSales;
         }
         
     @Override
         public double pay(){
-            return (commissionRate * totalSales/100) + super.pay();
+            double payment = super.pay() + (commissionRate/100 * totalSales);
+            totalSales = 0;
+            return payment;
         }
         
     @Override
         public String toString(){
-            return super.toString() + "\nTotal Sales : " + totalSales;
+            String result = super.toString();
+            result += "\nTotal Sales : " + totalSales;
+            return result;
         }
     
 }
